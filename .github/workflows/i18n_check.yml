@@ -31,6 +31,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
+          node-version: 16
 
       # Does not need branch matching as only analyses this layer
       - name: Install Deps

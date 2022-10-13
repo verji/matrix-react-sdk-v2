@@ -19,6 +19,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
+          node-version: 16
 
       - name: Install Deps
         run: "./scripts/ci/install-deps.sh --ignore-scripts"
@@ -50,6 +51,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
+          node-version: 16
 
       # Does not need branch matching as only analyses this layer
       - name: Install Deps
@@ -67,6 +69,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
+          node-version: 16
 
       # Does not need branch matching as only analyses this layer
       - name: Install Deps
@@ -84,6 +87,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'yarn'
+          node-version: 16
 
       - name: Install Deps
         run: "scripts/ci/layered.sh"
