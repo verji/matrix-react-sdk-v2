@@ -2342,7 +2342,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
 
         const showChatEffects = SettingsStore.getValue("showChatEffects");
 
-        let mainSplitBody: React.ReactFragment;
+        let mainSplitBody: JSX.Element;
         let mainSplitContentClassName: string;
         // Decide what to show in the main split
         switch (this.state.mainSplitContentType) {
