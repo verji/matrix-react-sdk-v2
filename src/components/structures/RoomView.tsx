@@ -64,6 +64,7 @@ import SearchBar, { SearchScope } from "../views/rooms/SearchBar";
 import RoomUpgradeWarningBar from "../views/rooms/RoomUpgradeWarningBar";
 import AuxPanel from "../views/rooms/AuxPanel";
 import LegacyRoomHeader, { ISearchInfo } from "../views/rooms/LegacyRoomHeader";
+import RoomHeader from "../views/rooms/RoomHeader";
 import { IOOBData, IThreepidInvite } from "../../stores/ThreepidInviteStore";
 import EffectsOverlay from "../views/elements/EffectsOverlay";
 import { containsEmoji } from "../../effects/utils";
@@ -295,6 +296,9 @@ function LocalRoomView(props: LocalRoomViewProps): ReactElement {
     return (
         <div className="mx_RoomView mx_RoomView--local">
             <ErrorBoundary>
+                {SettingsStore.getValue("feature_new_room_decoration_ui") ? (
+                    <RoomHeader room={context.room} />
+                ) : (
                     <LegacyRoomHeader
                         room={context.room}
                         searchInfo={undefined}
@@ -311,6 +315,7 @@ function LocalRoomView(props: LocalRoomViewProps): ReactElement {
                         viewingCall={false}
                         activeCall={null}
                     />
+                )}
                 <main className="mx_RoomView_body" ref={props.roomView}>
                     <FileDropTarget parent={props.roomView.current} onFileDrop={props.onFileDrop} />
                     <div className="mx_RoomView_timeline">
@@ -345,6 +350,9 @@ function LocalRoomCreateLoader(props: ILocalRoomCreateLoaderProps): ReactElement
     return (
         <div className="mx_RoomView mx_RoomView--local">
             <ErrorBoundary>
+                {SettingsStore.getValue("feature_new_room_decoration_ui") ? (
+                    <RoomHeader room={context.room} />
+                ) : (
                     <LegacyRoomHeader
                         room={context.room}
                         searchInfo={undefined}
@@ -361,6 +369,7 @@ function LocalRoomCreateLoader(props: ILocalRoomCreateLoaderProps): ReactElement
                         viewingCall={false}
                         activeCall={null}
                     />
+                )}
                 <div className="mx_RoomView_body">
                     <LargeLoader text={text} />
                 </div>
@@ -2460,6 +2469,9 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                         <EffectsOverlay roomWidth={this.roomView.current.offsetWidth} />
                     )}
                     <ErrorBoundary>
+                        {SettingsStore.getValue("feature_new_room_decoration_ui") ? (
+                            <RoomHeader room={this.state.room} />
+                        ) : (
                             <LegacyRoomHeader
                                 room={this.state.room}
                                 searchInfo={this.state.search}
@@ -2477,6 +2489,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                                 viewingCall={viewingCall}
                                 activeCall={this.state.activeCall}
                             />
+                        )}
                         <MainSplit
                             panel={rightPanel}
                             resizeNotifier={this.props.resizeNotifier}
