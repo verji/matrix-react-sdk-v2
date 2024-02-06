@@ -21,7 +21,12 @@ import SetupEncryptionDialog from "../components/views/dialogs/security/SetupEnc
 import { accessSecretStorage } from "../SecurityManager";
 import ToastStore from "../stores/ToastStore";
 import GenericToast from "../components/views/toasts/GenericToast";
-import SecurityCustomisations from "../customisations/Security";
+
+// VERJI 
+//import SecurityCustomisations from "../customisations/Security";
+import { ModuleRunner } from "../modules/ModuleRunner";
+import { SetupEncryptionStore } from "../stores/SetupEncryptionStore";
+
 import Spinner from "../components/views/elements/Spinner";
 
 const TOAST_KEY = "setupencryption";
@@ -79,9 +84,22 @@ const onReject = (): void => {
 };
 
 export const showToast = (kind: Kind): void => {
-    if (SecurityCustomisations.setupEncryptionNeeded?.(kind)) {
+
+
+    // VERJI 
+
+    // if (SecurityCustomisations.setupEncryptionNeeded?.(kind)) {
+    //     return;
+    // }
+
+    if (
+        ModuleRunner.instance.extensions.cryptoSetup?.setupEncryptionNeeded({
+            kind: kind as any,
+            storeProvider: { getInstance: () => SetupEncryptionStore.sharedInstance() },
+        })
+    )
         return;
-    }
+
 
     const onAccept = async (): Promise<void> => {
         if (kind === Kind.VERIFY_THIS_SESSION) {
