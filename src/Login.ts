@@ -27,7 +27,11 @@ import {
 import { logger } from "matrix-js-sdk/src/logger";
 
 import { IMatrixClientCreds } from "./MatrixClientPeg";
-import SecurityCustomisations from "./customisations/Security";
+
+// VERJI
+//import SecurityCustomisations from "../customisations/Security";
+import { ModuleRunner } from "./modules/ModuleRunner";
+
 import { getOidcClientId } from "./utils/oidc/registerClient";
 import { IConfigOptions } from "./IConfigOptions";
 import SdkConfig from "./SdkConfig";
@@ -294,7 +298,9 @@ export async function sendLoginRequest(
         accessToken: data.access_token,
     };
 
-    SecurityCustomisations.examineLoginResponse?.(data, creds);
+    /* VERJI */ 
+    /* SecurityCustomisations.examineLoginResponse?.(data, creds); */
+    ModuleRunner.instance.extensions.cryptoSetup?.examineLoginResponse(data, creds);
 
     return creds;
 }
